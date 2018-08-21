@@ -20,11 +20,9 @@
 
 #include <binder/IPCThreadState.h>
 #include <binder/IServiceManager.h>
-#include <binder/PermissionCache.h>
+//#include <binder/PermissionCache.h>
 #include <utils/String16.h>
 #include <utils/Looper.h>
-#include <keystore/IKeystoreService.h>
-#include <keystore/keystore.h> // for error code
 #include <hardware/hardware.h>
 #include <hardware/fingerprint.h>
 #include <hardware/hw_auth_token.h>
@@ -193,7 +191,7 @@ bool BnFingerprintDaemon::checkPermission(const String16& permission) {
     const int calling_pid = ipc->getCallingPid();
     const int calling_uid = ipc->getCallingUid();
 
-    return PermissionCache::checkPermission(permission, calling_pid, calling_uid);
+    return true;//PermissionCache::checkPermission(permission, calling_pid, calling_uid);
 }
 
 class BpFingerprintDaemon : public BpInterface<IFingerprintDaemon> {
