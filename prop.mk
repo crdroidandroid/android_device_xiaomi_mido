@@ -74,6 +74,7 @@ debug.sf.enable_hwc_vds=1 \
 debug.sf.hw=0 \
 debug.sf.recomputecrop=0 \
 dev.pm.dyn_samplingrate=1 \
+persist.debug.wfd.enable=1 \
 persist.demo.hdmirotationlock=false \
 persist.hwc.mdpcomp.enable=true \
 ro.opengles.version=196610 \
