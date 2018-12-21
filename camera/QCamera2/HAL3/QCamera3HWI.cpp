@@ -245,14 +245,14 @@ const QCamera3HardwareInterface::QCameraMap<
     { ANDROID_LENS_STATE_MOVING,        CAM_AF_LENS_STATE_MOVING}
 };
 
-const int32_t available_thumbnail_sizes[] = {0, 0,
-                                             176, 144,
+const int32_t available_thumbnail_sizes[] = {176, 144,
                                              240, 144,
                                              256, 144,
                                              240, 160,
                                              256, 154,
                                              240, 240,
-                                             320, 240};
+                                             320, 240,
+                                               0, 0  };
 
 const QCamera3HardwareInterface::QCameraMap<
         camera_metadata_enum_android_sensor_test_pattern_mode_t,
@@ -1751,6 +1751,7 @@ int QCamera3HardwareInterface::configureStreamsPerfLocked(
                 "stream size : %d x %d, stream rotation = %d",
                  newStream->stream_type, newStream->format,
                 newStream->width, newStream->height, newStream->rotation);
+
         //if the stream is in the mStreamList validate it
         bool stream_exists = false;
         for (List<stream_info_t*>::iterator it=mStreamInfo.begin();
@@ -2197,7 +2198,8 @@ int QCamera3HardwareInterface::configureStreamsPerfLocked(
 
                 default:
                     LOGE("not a supported format 0x%x", newStream->format);
-                    break;
+                    pthread_mutex_unlock(&mMutex);
+                    return -EINVAL;
                 }
             } else if (newStream->stream_type == CAMERA3_STREAM_INPUT) {
                 newStream->max_buffers = MAX_INFLIGHT_REPROCESS_REQUESTS;
@@ -10484,6 +10486,14 @@ int QCamera3HardwareInterface::validateStreamRotations(
                 HAL_PIXEL_FORMAT_IMPLEMENTATION_DEFINED);
         bool isZsl = (newStream->stream_type == CAMERA3_STREAM_BIDIRECTIONAL &&
                 isImplDef);
+
+        if(newStream->rotation == -1) {
+            LOGE("ERROR: Invalid stream rotation requested for stream"
+                    "type %d and stream format: %d", newStream->stream_type,
+                    newStream->format);
+            rc = -EINVAL;
+            break;
+        }
 
         if (isRotated && (!isImplDef || isZsl)) {
             LOGE("Error: Unsupported rotation of %d requested for stream"
