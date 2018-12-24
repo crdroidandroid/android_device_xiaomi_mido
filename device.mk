@@ -171,8 +171,9 @@ PRODUCT_PACKAGES += \
 
 # FM
 PRODUCT_PACKAGES += \
-    FMRadio \
-    libfmjni
+    FM2 \
+    libqcomfm_jni \
+    qcom.fmradio
 
 # Gatekeeper HAL
 PRODUCT_PACKAGES += \
@@ -284,8 +285,7 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.1-service-qti
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml \
-    $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml
+    $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
 
 # QMI
 PRODUCT_PACKAGES += \
@@ -296,6 +296,7 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     init.goodix.sh \
     init.qcom.bt.sh \
+    init.qti.fm.sh \
     init.qcom.post_boot.sh \
     init.qcom.rc \
     init.qcom.sh \
@@ -367,8 +368,9 @@ PRODUCT_PACKAGES += \
     android.hardware.vr@1.0-service \
     vr.msm8953
 
-# Whitelisted app
+# Whitelisted apps
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml \
     $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml
 
 # Wifi

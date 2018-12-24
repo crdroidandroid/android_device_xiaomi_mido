@@ -1,12 +1,6 @@
 #
 # system.prop for mido
 #
-
-# ART
-PRODUCT_PROPERTY_OVERRIDES += \
-dalvik.vm.dex2oat-filter=speed \
-dalvik.vm.image-dex2oat-filter=speed
-
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
 af.fast_track_multiplier=2 \
@@ -18,7 +12,7 @@ persist.vendor.audio.fluence.speaker=true \
 persist.vendor.audio.fluence.voicecall=true \
 persist.vendor.audio.fluence.voicerec=true \
 persist.vendor.audio.hw.binder.size_kbyte=1024 \
-persist.vendor.bt.enable.splita2dp=false \
+persist.vendor.btstack.enable.splita2dp=false \
 ro.af.client_heap_size_kbyte=7168 \
 ro.vendor.audio.sdk.fluencetype=fluence \
 ro.vendor.audio.sdk.ssr=false \
@@ -76,13 +70,21 @@ debug.egl.hw=0 \
 debug.enable.sglscale=1 \
 debug.gralloc.enable_fb_ubwc=1 \
 debug.mdpcomp.logs=0 \
+debug.sf.enable_hwc_vds=1 \
 debug.sf.hw=0 \
+debug.sf.recomputecrop=0 \
 dev.pm.dyn_samplingrate=1 \
 persist.demo.hdmirotationlock=false \
 persist.hwc.mdpcomp.enable=true \
 ro.opengles.version=196610 \
 ro.qualcomm.cabl=0 \
-ro.sf.lcd_density=420
+ro.sf.lcd_density=420 \
+ro.vendor.display.cabl=2 \
+sdm.debug.disable_skip_validate=1 \
+vendor.display.enable_default_color_mode=1 \
+vendor.display.disable_skip_validate=1 \
+vendor.display.enable_default_color_mode=1 \
+vendor.gralloc.enable_fb_ubwc=1
 
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -94,7 +96,8 @@ persist.qfp=false
 
 # Fm
 PRODUCT_PROPERTY_OVERRIDES += \
-ro.fm.transmitter=false
+ro.fm.transmitter=false \
+vendor.hw.fm.init=0
 
 # Frp
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -112,19 +115,19 @@ av.debug.disable.pers.cache=1 \
 media.aac_51_output_enabled=true \
 media.msm8956hw=0 \
 media.stagefright.audio.sink=280 \
-mm.enable.qcom_parser=1048575 \
 mm.enable.smoothstreaming=true \
 mmp.enable.3g2=true \
 vendor.audio.hw.aac.encoder=true \
+vendor.mm.enable.qcom_parser=1048575 \
 vendor.vidc.dec.downscalar_height=1088 \
 vendor.vidc.dec.downscalar_width=1920 \
 vendor.vidc.disable.split.mode=1 \
 vendor.vidc.enc.disable.pq=true \
-vendor.vidc.enc.disable_bframes=1
+vendor.vidc.enc.disable_bframes=1 \
+vendor.video.disable.ubwc=1
 
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
-ro.sys.fw.dex2oat_thread_count=8 \
 ro.vendor.extension_library=libqti-perfd-client.so
 
 # Netmgrd
@@ -144,10 +147,6 @@ persist.rild.nitz_short_ons_0="" \
 persist.rild.nitz_short_ons_1="" \
 persist.rild.nitz_short_ons_2="" \
 persist.rild.nitz_short_ons_3=""
-
-# Property to enable display default color mode
-PRODUCT_PROPERTY_OVERRIDES += \
-vendor.display.enable_default_color_mode=1
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
