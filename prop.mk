@@ -129,7 +129,8 @@ vendor.video.disable.ubwc=1
 
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
-ro.vendor.extension_library=libqti-perfd-client.so
+ro.vendor.extension_library=libqti-perfd-client.so \
+ro.vendor.qti.sys.fw.bservice_enable=true
 
 # Netmgrd
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -192,3 +193,8 @@ persist.sys.usb.config.extra=none
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
 wifi.interface=wlan0
+
+# Wifi-Display
+PRODUCT_PROPERTY_OVERRIDES += \
+persist.debug.wfd.enable=1 \
+persist.sys.wfd.virtual=0
