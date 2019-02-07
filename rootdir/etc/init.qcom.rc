@@ -56,6 +56,8 @@ on early-boot
     write /sys/kernel/boot_adsp/boot 1
     write /sys/kernel/boot_slpi/boot 1
 
+    exec u:r:qti_init_shell:s0 -- /vendor/bin/init.qcom.early_boot.sh
+
     # for backward compatibility
     chown system system /persist/sensors
     chown system system /persist/sensors/registry
@@ -103,6 +105,14 @@ on boot
     chown system system /sys/kernel/boot_adsp/ssr
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
+    chown system system /proc/touchpanel/capacitive_keys_disable
+    chmod 0666 /proc/touchpanel/capacitive_keys_disable
+    chown system system /sys/bus/i2c/devices/3-0038/disable_keys
+    chmod 0666 /sys/bus/i2c/devices/3-0038/disable_keys
+    chown system system /sys/devices/soc/78b7000.i2c/i2c-3/3-0038/enable_dt2w
+    chmod 0664 /sys/devices/soc/78b7000.i2c/i2c-3/3-0038/enable_dt2w
+    chown system system /proc/touchpanel/enable_dt2w
+    chmod 0664 /proc/touchpanel/enable_dt2w
 
     # Vibrator permissions
     chown root system /sys/class/timed_output/vibrator/vtg_level
@@ -143,9 +153,6 @@ on boot
 
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
-
-    #Remove SUID bit for iproute2 ip tool
-    chmod 0755 /system/bin/ip
 
 #   Assign TCP buffer thresholds to be ceiling value of technology maximums
 #   Increased technology maximums should be reflected here.
@@ -372,6 +379,8 @@ on property:vendor.radio.atfwd.start=false
     stop vendor.atfwd
 
 on property:vold.decrypt=trigger_restart_framework
+    stop vendor.camera-provider-2-4
+    start vendor.camera-provider-2-4
     start wcnss-service
 
 on property:persist.env.fastdorm.enabled=true
@@ -406,25 +415,12 @@ service vendor.tftp_server /vendor/bin/tftp_server
    user root
    writepid /dev/cpuset/system-background/tasks
 
-service vendor.start_hci_filter /system/vendor/bin/wcnss_filter
-    class late_start
-    user bluetooth
-    group bluetooth diag system wakelock
-    seclabel u:r:bluetooth:s0
-    disabled
-
 service fm_dl /vendor/bin/init.qti.fm.sh
     class late_start
     user system
     group system
     disabled
     oneshot
-
-on property:vendor.wc_transport.start_hci=true
-    start vendor.start_hci_filter
-
-on property:vendor.wc_transport.start_hci=false
-    stop vendor.start_hci_filter
 
 service vendor.atfwd /vendor/bin/ATFWD-daemon
     class late_start

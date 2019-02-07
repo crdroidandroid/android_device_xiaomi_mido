@@ -150,9 +150,9 @@ PRODUCT_PACKAGES += \
     libgenlock \
     libtinyxml
 
-# Doze mode
+# Device-specific settings
 PRODUCT_PACKAGES += \
-    XiaomiDoze
+    XiaomiParts
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -286,7 +286,8 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.1-service-qti
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
+    $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml \
+    $(LOCAL_PATH)/configs/perf/perf-profile0.conf:$(TARGET_COPY_OUT_VENDOR)/etc/perf/perf-profile0.conf
 
 # QMI
 PRODUCT_PACKAGES += \
@@ -298,6 +299,7 @@ PRODUCT_PACKAGES += \
     init.goodix.sh \
     init.qcom.bt.sh \
     init.qti.fm.sh \
+    init.qcom.early_boot.sh \
     init.qcom.post_boot.sh \
     init.qcom.rc \
     init.qcom.sh \
