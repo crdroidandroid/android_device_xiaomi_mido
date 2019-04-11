@@ -14,7 +14,6 @@ persist.vendor.audio.fluence.voicecall=true \
 persist.vendor.audio.fluence.voicerec=true \
 persist.vendor.audio.hw.binder.size_kbyte=1024 \
 persist.vendor.btstack.enable.splita2dp=false \
-ro.af.client_heap_size_kbyte=7168 \
 ro.config.media_vol_steps=25 \
 ro.config.vc_call_vol_steps=7 \
 ro.vendor.audio.sdk.fluencetype=fluence \
@@ -74,6 +73,7 @@ debug.gralloc.enable_fb_ubwc=1 \
 debug.mdpcomp.logs=0 \
 debug.sf.enable_hwc_vds=1 \
 debug.sf.hw=0 \
+debug.sf.latch_unsignaled=1 \
 debug.sf.recomputecrop=0 \
 dev.pm.dyn_samplingrate=1 \
 persist.debug.wfd.enable=1 \
@@ -187,6 +187,10 @@ persist.timed.enable=true
 # Tcp
 PRODUCT_PROPERTY_OVERRIDES += \
 net.tcp.2g_init_rwnd=10
+
+# UI
+PRODUCT_PROPERTY_OVERRIDES += \
+sys.use_fifo_ui=1
 
 # Usb
 PRODUCT_PROPERTY_OVERRIDES += \
