@@ -19,7 +19,6 @@
 set -e
 
 DEVICE=mido
-DEVICE_COMMON=msm8953-common
 VENDOR=xiaomi
 
 # Load extract_utils and do some sanity checks
