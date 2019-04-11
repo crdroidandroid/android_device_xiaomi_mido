@@ -22,6 +22,7 @@ INITIAL_COPYRIGHT_YEAR=2017
 
 # Required!
 export DEVICE=mido
+export DEVICE_COMMON=msm8953-common
 export VENDOR=xiaomi
 
 # Load extract_utils and do some sanity checks
@@ -36,8 +37,6 @@ if [ ! -f "$HELPER" ]; then
     exit 1
 fi
 . "$HELPER"
-
-INITIAL_COPYRIGHT_YEAR="$DEVICE_BRINGUP_YEAR"
 
 # Initialize the helper
 setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true
