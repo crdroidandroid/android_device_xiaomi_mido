@@ -209,3 +209,11 @@ wifi.interface=wlan0
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.debug.wfd.enable=1 \
 persist.sys.wfd.virtual=0
+
+# ROM Stats
+
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.romstats.url=http://http://stats.remainsilent.net/submit/ \
+ro.romstats.name=crDroid
+ro.romstats.version=5.3-04/25/2019
+ro.romstats.tframe=1

@@ -153,6 +153,10 @@ PRODUCT_PACKAGES += \
 # Device-specific settings
 PRODUCT_PACKAGES += \
     XiaomiParts
+    
+# ROM Stats
+PRODUCT_PACKAGES += \
+    stats
 
 # DRM
 PRODUCT_PACKAGES += \
