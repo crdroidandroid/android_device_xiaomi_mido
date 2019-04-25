@@ -63,9 +63,6 @@ public class DeviceSettings extends PreferenceFragment implements
 
     private static final String KEY_CATEGORY_USB_FASTCHARGE = "usb_fastcharge";
 
-    public static final String KEY_SLOW_WAKEUP_FIX = "slow_wakeup_fix";
-    public static final String FILE_LEVEL_WAKEUP = "/sys/devices/soc/qpnp-smbcharger-18/power_supply/battery/subsystem/bms/hi_power";
-
     private VibratorStrengthPreference mVibratorStrength;
     private YellowTorchBrightnessPreference mYellowTorchBrightness;
     private WhiteTorchBrightnessPreference mWhiteTorchBrightness;
@@ -73,7 +70,6 @@ public class DeviceSettings extends PreferenceFragment implements
     private ListPreference mSpectrum;
     private SwitchPreference mFastcharge;
     private PreferenceCategory mUsbFastcharge;
-    private SwitchPreference slowWakeupFixPreference;
     private BatteryChargingLimiterPreference mBatteryChargingLimiter;
 
     @Override
@@ -127,10 +123,6 @@ public class DeviceSettings extends PreferenceFragment implements
           prefSet.removePreference(mUsbFastcharge);
         }
 
-        slowWakeupFixPreference = (SwitchPreference) findPreference(KEY_SLOW_WAKEUP_FIX);
-        slowWakeupFixPreference.setChecked(Utils.getFileValueAsBoolean(FILE_LEVEL_WAKEUP, false));
-        slowWakeupFixPreference.setOnPreferenceChangeListener(this);
-
         mBatteryChargingLimiter = (BatteryChargingLimiterPreference) findPreference(KEY_BATTERY_CHARGING_LIMITER);
         if (mBatteryChargingLimiter != null) {
             mBatteryChargingLimiter.setEnabled(BatteryChargingLimiterPreference.isSupported());
@@ -173,23 +165,8 @@ public class DeviceSettings extends PreferenceFragment implements
             editor.putBoolean(USB_FASTCHARGE_KEY, value);
             editor.apply();
             return true;
-        } else if (preference == slowWakeupFixPreference) {
-            boolean value = (Boolean) newValue;
-            slowWakeupFixPreference.setChecked(value);
-            setSlowWakeupFix(value);
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-            editor.putBoolean(KEY_SLOW_WAKEUP_FIX, value);
-            editor.apply();
-            return true;
         }
         return false;
-    }
-
-    public static void setSlowWakeupFix(boolean value) {
-        if (value) 
-            Utils.writeValue(FILE_LEVEL_WAKEUP, "1");
-        else
-            Utils.writeValue(FILE_LEVEL_WAKEUP, "0"); 
     }
 
     public static void restoreSpectrumProp(Context context) {
