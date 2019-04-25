@@ -47,7 +47,7 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8953
 
 # ANT
-BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
+BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio
 AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
@@ -80,7 +80,6 @@ TARGET_NO_BOOTLOADER := true
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH_QCOM := true
-BLUETOOTH_HCI_USE_MCT := true
 
 # Camera
 BOARD_QTI_CAMERA_32BIT_ONLY := true
@@ -102,11 +101,12 @@ TARGET_HW_DISK_ENCRYPTION := true
 # Dexpreopt
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
       WITH_DEXPREOPT := true
+    endif
   endif
 endif
-WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
-PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
 
 # Display
 MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
@@ -196,7 +196,7 @@ TARGET_RIL_VARIANT := caf
 TARGET_USES_OLD_MNC_FORMAT := true
 
 # Security patch level
-VENDOR_SECURITY_PATCH := 2019-03-05
+VENDOR_SECURITY_PATCH := 2019-04-01
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
